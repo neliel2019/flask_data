@@ -1,6 +1,7 @@
 from flask import Flask, json
 from tab_user import login_cheek
 from tab_user import register_user
+from tab_questionsbank import getQuestionName
 
 from dbconnection import acc
 
@@ -45,6 +46,15 @@ def register_web():
             "register_code": 0,
             "register_message": "该用户名已被使用"
         }
+
+@acc.route('/api/getQuestionName',methods=['POST','GET'])
+
+def m_getQuestionName():
+
+    print(getQuestionName())
+
+    return "oo"
+
 
 
 
