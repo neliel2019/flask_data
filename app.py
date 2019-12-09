@@ -2,6 +2,8 @@ from flask import Flask, json
 from tab_user import login_cheek
 from tab_user import register_user
 from tab_questionsbank import getQuestionName
+from serialization import set_default
+
 
 from dbconnection import acc
 
@@ -29,7 +31,7 @@ def login_web():
         }
 
 @acc.route('/api/register',methods=['POST','GET'])
-def register_web():
+def register_web():#提供登录验证
     register_web_request_data = request.get_data()
     register_web_json= json.loads(register_web_request_data.decode("utf-8"))
     r_username = str(register_web_json.get("r_username"))
@@ -49,11 +51,17 @@ def register_web():
 
 @acc.route('/api/getQuestionName',methods=['POST','GET'])
 
-def m_getQuestionName():
-
+def m_getQuestionName():#提供试卷名
     print(getQuestionName())
+    list=getQuestionName()
 
-    return "oo"
+    data={
+        "questionsbanks":list,
+    }
+    data1=json.dumps(data, ensure_ascii=False)
+    print(data1)
+
+    return data1
 
 
 

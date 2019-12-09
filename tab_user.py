@@ -1,7 +1,7 @@
 from dbconnection import db
 
 class User(db.Model):
-
+    __tablename__ = 'User'
     username=db.Column(db.String(255),primary_key=True)
     passwrod=db.Column(db.String(255))
     authority=db.Column(db.String(255))

@@ -1,4 +1,5 @@
 from dbconnection import db
+import json
 
 class QuestionBank(db.Model):
     __tablename__ = 'QuestionBank'
@@ -12,9 +13,32 @@ class QuestionBank(db.Model):
         self.creatTime=creatTime
 
 def getQuestionBankID(qbname):
-        bank = QuestionBank.query.filter(QuestionBank.questionsBankName == qbname).first()
+    bank = QuestionBank.query.filter(QuestionBank.questionsBankName == qbname).first()
 
-        return bank.questionsBankID
+    return bank.questionsBankID
+
+
+
+
+
 
 def getQuestionName():
-        bank = QuestionBank.query.all();
+
+    bank = QuestionBank.query.all();
+    list=[]
+    a=0
+    for i in bank:
+
+        ap={"questionsBankID":i.questionsBankID,"questionsBankName" : i.questionsBankName,"creatTime":i.creatTime}
+        list.append(ap)
+        a += 1
+
+
+
+
+
+
+
+    return list;
+
+
