@@ -3,6 +3,8 @@ from tab_user import login_cheek
 from tab_user import register_user
 from tab_questionsbank import getQuestionName
 from serialization import set_default
+from tab_exam_record import c_examrecord
+from tab_questiondetailed import get_questionids
 
 
 from dbconnection import acc
@@ -62,6 +64,28 @@ def m_getQuestionName():#提供试卷名
     print(data1)
 
     return data1
+
+@acc.route('/api/setExamRecord',methods=['POST','GET'])
+def m_setExamRecord():
+    register_web_request_data = request.get_data()
+    register_web_json = json.loads(register_web_request_data.decode("utf-8"))
+    s_questionsbanksid = str(register_web_json.get("b_questionsbanksid"))
+    s_username = str(register_web_json.get("b_username"))
+    print(s_questionsbanksid,s_username)
+    a=c_examrecord(s_questionsbanksid,s_username)
+    print(a)
+
+    return {
+        "setExamRecordmessage":"1"
+    }
+@acc.route('/api/getQuestion',methods=['POST','GET'])
+def m_getQuestion():
+    web_request_data = request.get_data()
+    web_json = json.loads(web_request_data.decode("utf-8"))
+    s_question_id_bank = str(web_json.get("questionBankID"))
+
+
+    return get_questionids(s_question_id_bank)
 
 
 
